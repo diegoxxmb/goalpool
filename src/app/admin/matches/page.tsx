@@ -109,7 +109,7 @@ export default async function AdminMatchesPage({ searchParams }: { searchParams?
               </div>
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                 <form action={importWorldCupScheduleAction} className="inline-block">
-                  <Button variant="gold" size="md" type="submit">
+                  <Button size="md" type="submit">
                     Import World Cup 2026 Schedule
                   </Button>
                 </form>
@@ -147,7 +147,7 @@ export default async function AdminMatchesPage({ searchParams }: { searchParams?
                   match.status === "finished" ? (
                     <div className="flex items-center gap-3">
                       <span className="font-black text-[#00E676]">{match.home_score} - {match.away_score}</span>
-                      <Badge variant="outline" className="text-[9px] uppercase border-emerald-500/30 text-emerald-500">Finalizado</Badge>
+                      <Badge className="text-[9px] uppercase border-emerald-500/30 text-emerald-500">Finalizado</Badge>
                     </div>
                   ) : (
                     <form action={finishMatchAction} className="flex items-center gap-2">
@@ -157,7 +157,7 @@ export default async function AdminMatchesPage({ searchParams }: { searchParams?
                         <span className="text-slate-600 text-[10px] font-bold">VS</span>
                         <Input name="awayScore" type="number" className="h-7 w-10 bg-black/50 text-center border-white/10 p-0 text-xs" defaultValue={match.away_score ?? 0} required />
                       </div>
-                      <Button variant="gold" size="sm" type="submit" className="h-7 px-2 text-[9px] uppercase font-black tracking-tighter">
+                      <Button size="sm" type="submit" className="h-7 px-2 text-[9px] uppercase font-black tracking-tighter">
                         Finalizar
                       </Button>
                     </form>
