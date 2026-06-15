@@ -1,11 +1,15 @@
-import { type HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
+import { HTMLAttributes } from "react";
 
-export function Badge({ className, ...props }: HTMLAttributes<HTMLSpanElement>) {
+type BadgeProps = HTMLAttributes<HTMLSpanElement> & {
+  variant?: string;
+};
+
+export function Badge({ className, variant, ...props }: BadgeProps) {
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-emerald-200 shadow-[0_10px_30px_-20px_rgba(16,185,129,0.8)]",
+        "inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold uppercase",
         className
       )}
       {...props}
