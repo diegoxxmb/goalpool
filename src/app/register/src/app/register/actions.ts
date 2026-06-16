@@ -1,10 +1,10 @@
 "use server";
 
-import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
 
 export async function registerAction(formData: FormData) {
-  const email = String(formData.get("email") ?? "").trim();
+  const email = String(formData.get("email") ?? "");
   const password = String(formData.get("password") ?? "");
 
   const first_name = String(formData.get("first_name") ?? "");
@@ -27,14 +27,12 @@ export async function registerAction(formData: FormData) {
     },
   });
 
-  console.log("SIGNUP RESULT:", { data, error });
-
   if (error) {
     return redirect(`/register?error=${encodeURIComponent(error.message)}`);
   }
 
-  if (!data?.user) {
-    return redirect(`/register?error=no_user_created`);
+  if (!data.user) {
+    return redirect(`/register?error=no_user`);
   }
 
   return redirect("/payment");
