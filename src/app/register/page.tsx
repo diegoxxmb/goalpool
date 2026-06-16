@@ -1,44 +1,17 @@
-"use server";
+import { registerAction } from "./actions";
 
-import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+export default function RegisterPage() {
+  return (
+    <form action={registerAction}>
+      <input name="email" placeholder="email" />
+      <input name="password" type="password" />
 
-export async function registerAction(formData: FormData) {
-  const email = String(formData.get("email") ?? "").trim();
-  const password = String(formData.get("password") ?? "");
+      <input name="first_name" placeholder="first name" />
+      <input name="last_name" placeholder="last name" />
+      <input name="alias" placeholder="alias" />
+      <input name="phone" placeholder="phone" />
 
-  const first_name = String(formData.get("first_name") ?? "");
-  const last_name = String(formData.get("last_name") ?? "");
-  const alias = String(formData.get("alias") ?? "");
-  const phone = String(formData.get("phone") ?? "");
-
-  const supabase = await createClient();
-
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      data: {
-        first_name,
-        last_name,
-        alias,
-        phone,
-      },
-    },
-  });
-
-  console.log("SIGNUP:", { data, error });
-
-  // ❌ error en registro
-  if (error) {
-    return redirect(`/register?error=${encodeURIComponent(error.message)}`);
-  }
-
-  // ❌ no se creó usuario
-  if (!data?.user) {
-    return redirect("/register?error=no_user_created");
-  }
-
-  // ✅ TODO OK → manda directo a payment
-  return redirect("/payment");
+      <button type="submit">Register</button>
+    </form>
+  );
 }

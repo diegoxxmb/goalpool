@@ -18,18 +18,23 @@ export async function registerAction(formData: FormData) {
     email,
     password,
     options: {
-      data: { first_name, last_name, alias, phone },
+      data: {
+        first_name,
+        last_name,
+        alias,
+        phone,
+      },
     },
   });
 
-  console.log("SIGNUP:", { data, error });
+  console.log("SIGNUP RESULT:", { data, error });
 
   if (error) {
     return redirect(`/register?error=${encodeURIComponent(error.message)}`);
   }
 
   if (!data?.user) {
-    return redirect("/register?error=no_user");
+    return redirect(`/register?error=no_user_created`);
   }
 
   return redirect("/payment");
