@@ -1,3 +1,8 @@
+"use server";
+
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
+
 export async function registerAction(formData: FormData) {
   const email = String(formData.get("email") ?? "").trim();
   const password = String(formData.get("password") ?? "");
@@ -22,16 +27,18 @@ export async function registerAction(formData: FormData) {
     },
   });
 
-  console.log("SIGNUP RESULT:", { data, error });
+  console.log("SIGNUP:", { data, error });
 
+  // ❌ error en registro
   if (error) {
     return redirect(`/register?error=${encodeURIComponent(error.message)}`);
   }
 
-  if (!data.user) {
-    return redirect(`/register?error=no_user_created`);
+  // ❌ no se creó usuario
+  if (!data?.user) {
+    return redirect("/register?error=no_user_created");
   }
 
-  // 🔥 IMPORTANTE: esto evita el "se queda pegado"
+  // ✅ TODO OK → manda directo a payment
   return redirect("/payment");
 }
